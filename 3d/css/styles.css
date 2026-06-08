@@ -1,0 +1,200 @@
+:root {
+    --bg: #282c34;
+    --fg: #9cdef2;
+    --panel: #1e2228;
+    --border: #355a66;
+    --red: #e06c75;
+    --green: #50fa7b;
+    --warn: #f0ad4e;
+    --accent: #00aaff;
+    --font-family: "JetBrainsMono Nerd Font", "JetBrains Mono", monospace;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+    background-color: var(--bg);
+    color: var(--fg);
+    font-family: var(--font-family);
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+}
+
+header {
+    height: 50px;
+    background-color: var(--panel);
+    display: flex;
+    align-items: center;
+    padding: 0 20px;
+    border-bottom: 1px solid var(--border);
+    z-index: 100;
+    flex-shrink: 0;
+}
+
+.logo {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: var(--red);
+    margin-right: 40px;
+    letter-spacing: -0.5px;
+}
+
+.e1 {
+    display: flex;
+    gap: 8px;
+}
+
+.e1 button {
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    background: transparent;
+    color: var(--fg);
+    border: 1px solid transparent;
+    transition: all 0.2s ease;
+}
+
+.e1 button:hover {
+    background-color: color-mix(in srgb, var(--fg) 10%, transparent);
+}
+
+.e1 button.active {
+    background-color: var(--red);
+    color: var(--bg);
+}
+
+.mainarea {
+    display: flex;
+    flex: 1;
+    overflow: hidden;
+}
+
+.e2 {
+    width: 240px;
+    background-color: var(--panel);
+    border-right: 1px solid var(--border);
+    display: flex;
+    flex-direction: column;
+    flex-shrink: 0;
+}
+
+.e2-title {
+    font-size: 0.65rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--color-muted-alt);
+    margin: 24px 0 8px 16px;
+    font-weight: 700;
+}
+
+.e2 > div {
+    display: none;
+    flex-direction: column;
+    padding: 0 8px;
+}
+
+.e2 > div.active {
+    display: flex;
+}
+
+.e2 button {
+    text-align: left;
+    padding: 10px 12px;
+    border-radius: 6px;
+    color: var(--fg);
+    font-size: 0.9rem;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    opacity: 0.7;
+}
+
+.e2 button:hover {
+    opacity: 1;
+    background-color: color-mix(in srgb, var(--fg) 8%, transparent);
+    transform: translateX(4px);
+}
+
+.e2 button.active {
+    opacity: 1;
+    background-color: color-mix(in srgb, var(--red) 15%, transparent);
+    color: var(--red);
+    font-weight: 600;
+    border-left: 3px solid var(--red);
+    border-radius: 0 6px 6px 0;
+}
+
+.mainarea main {
+    flex: 1;
+    background-color: var(--bg);
+    padding: 40px;
+    overflow-y: auto;
+    position: relative;
+}
+
+.mainarea main::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(var(--border) 1px, transparent 1px);
+    background-size: 30px 30px;
+    opacity: 0.15;
+    pointer-events: none;
+}
+
+.mainarea main section {
+    display: none;
+    position: relative;
+}
+
+.mainarea main section.active {
+    display: block;
+    animation: contentFadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+.mainarea main section .title {
+    font-size: 2.2rem;
+    font-weight: 700;
+    margin-bottom: 20px;
+    color: var(--fg);
+}
+
+@keyframes contentFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: var(--bg);
+}
+
+::-webkit-scrollbar-thumb {
+    background: var(--border);
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: var(--red);
+}
