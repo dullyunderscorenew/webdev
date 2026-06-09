@@ -24,13 +24,13 @@
     <div class="mainarea">
         <aside id="e2" class="e2">
             <div id="1" class="active">
-                <div class="e2-title">sometitle</div>
+                <div class="title">sometitle</div>
                 <button class="active" data-content="1">lorem</button>
                 <button data-content="2">ipsum</button>
                 <button data-content="3">test</button>
             </div>
             <div id="2">
-                <div class="e2-title">sometitle</div>
+                <div class="title">sometitle</div>
                 <button data-content="1">test</button>
                 <button data-content="2">ipsum</button>
                 <button data-content="3">lorem</button>
@@ -40,6 +40,47 @@
             <section id="1-1" class="active">
                 <div class="title">title1</div>
                 <p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr.</p>
+                <div class="cardarea">
+                    <div class="card">
+                        <div class="header">
+                            <span class="title">System Status</span>
+                            <button class="toggle">&#9650;</button>
+                        </div>
+                        <div class="content">
+                            <p>All systems are operational. Latency is low and CPU usage is at 12%.</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <span class="title">Network Logs</span>
+                            <button class="toggle">&#9650;</button>
+                        </div>
+                        <div class="content">
+                            <p>Incoming request from 192.168.1.1<br>Status: 200 OK</p>
+                        </div>
+                    </div>
+                    <div class="card">
+                        <div class="header">
+                            <span class="title">User Settings</span>
+                            <button class="toggle">&#9650;</button>
+                        </div>
+                        <div class="content">
+                            <p>Theme: One Dark<br>Font: JetBrains Mono</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="cardarea">
+                    <div class="card">
+                        <div class="header">
+                            <span class="title">System Status</span>
+                            <button class="toggle">&#9650;</button>
+                        </div>
+                        <div class="content">
+                            <p>All systems are operational. Latency is low and CPU usage is at 12%.</p>
+                        </div>
+                    </div>
+                </div>
+                
             </section>
             <section id="1-2">
                 <div class="title">title2</div>
@@ -67,6 +108,7 @@
         const topnav = document.getElementById("e1");
         const sidenav = document.getElementById("e2");
         const mainframe = document.getElementById("e3");
+
         document.addEventListener("DOMContentLoaded", () => {    
             topnav.addEventListener("click", (event) => {
                 if (event.target.tagName == "BUTTON") {
@@ -77,6 +119,11 @@
                 if (event.target.tagName == "BUTTON") {
                     activate(event.target, 2);
                 }
+            });
+            Array.from(document.querySelectorAll(".card .toggle"), el => {
+                el.addEventListener("click", (event) => {
+                    activate(event.target, 3);
+                });
             });
         });
         
@@ -98,15 +145,20 @@
                 remove_active(topnav.querySelectorAll("button"));
                 remove_active(sidenav.children);
                 remove_active(document.querySelectorAll("[data-content]"));
+                remove_active(document.querySelectorAll("section"));
 
                 ele.classList.add("active");
                 e2.classList.add("active");
                 e2.querySelector("[data-content='" + ele.dataset.standard + "']").classList.add("active");
+                document.getElementById(ele.dataset.menu + "-" + ele.dataset.standard).classList.add("active");
             } else if (type == 2) {
                 remove_active(document.querySelectorAll("[data-content]"));
+                remove_active(document.querySelectorAll("section"));
+                
                 ele.classList.add("active");
-                remove_active(document.querySelectorAll("section"))
                 document.getElementById(ele.parentElement.id + "-" + ele.dataset.content).classList.add("active");
+            } else if (type == 3) {
+                ele.closest(".card").classList.toggle("collapsed");
             }
         }
     </script>

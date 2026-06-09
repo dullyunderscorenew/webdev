@@ -16,7 +16,8 @@
     padding: 0;
 }
 
-html, body {
+html,
+body {
     height: 100%;
     width: 100%;
     overflow: hidden;
@@ -89,7 +90,7 @@ header {
     flex-shrink: 0;
 }
 
-.e2-title {
+.e2 .title {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
@@ -164,6 +165,10 @@ header {
     animation: contentFadeIn 0.4s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
+.mainarea main section .cardarea {
+    margin-bottom: 15px;
+}
+
 .mainarea main section .title {
     font-size: 2.2rem;
     font-weight: 700;
@@ -198,3 +203,125 @@ header {
 ::-webkit-scrollbar-thumb:hover {
     background: var(--red);
 }
+
+.cardarea {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    position: relative;
+    z-index: 1;
+    align-items: stretch;
+}
+
+.card {
+    background-color: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    transition:
+        border-color 0.2s ease,
+        box-shadow 0.2s ease;
+    display: flex;
+    flex-direction: column;
+    flex: 0 1 auto;
+}
+
+.card:hover {
+    border-color: var(--red);
+}
+
+.card .header {
+    padding: 12px 16px;
+    background-color: color-mix(in srgb, var(--border) 10%, transparent);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    cursor: pointer;
+    user-select: none;
+    border-bottom: 1px solid var(--border);
+}
+
+.card .title {
+    all: unset !important;
+    font-size: 0.9rem !important;
+    font-weight: 600 !important;
+    color: var(--fg) !important;
+}
+
+.card .toggle {
+    background: transparent;
+    border: none;
+    color: var(--fg);
+    font-size: 0.7rem;
+    cursor: pointer;
+    transition:
+        transform 0.3s ease,
+        color 0.2s ease;
+    opacity: 0.6;
+    position: relative;
+    z-index: 1;
+}
+
+.card .toggle::after {
+    content: "";
+    position: absolute;
+    top: -15px;
+    bottom: -15px;
+    left: -15px;
+    right: -15px;
+    background: transparent;
+}
+
+.card .toggle:hover {
+    color: var(--red);
+    opacity: 1;
+}
+
+.card .content {
+    padding: 16px;
+    font-size: 0.85rem;
+    line-height: 1.6;
+    color: var(--fg);
+    transition:
+        max-height 0.3s ease,
+        padding 0.3s ease,
+        opacity 0.3s ease;
+    max-height: 500px;
+    opacity: 1;
+}
+.card.collapsed {
+    align-self: start;
+}
+
+.card.collapsed .content {
+    max-height: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+}
+
+.card.collapsed .toggle {
+    transform: rotate(180deg);
+}
+
+.s_5   { flex: 0 0 calc(5% - (15px * 0.95)); }
+.s_10  { flex: 0 0 calc(10% - (15px * 0.90)); }
+.s_15  { flex: 0 0 calc(15% - (15px * 0.85)); }
+.s_20  { flex: 0 0 calc(20% - (15px * 0.80)); }
+.s_25  { flex: 0 0 calc(25% - (15px * 0.75)); }
+.s_30  { flex: 0 0 calc(30% - (15px * 0.70)); }
+.s_35  { flex: 0 0 calc(35% - (15px * 0.65)); }
+.s_40  { flex: 0 0 calc(40% - (15px * 0.60)); }
+.s_45  { flex: 0 0 calc(45% - (15px * 0.55)); }
+.s_50  { flex: 0 0 calc(50% - (15px * 0.50)); }
+.s_55  { flex: 0 0 calc(55% - (15px * 0.45)); }
+.s_60  { flex: 0 0 calc(60% - (15px * 0.40)); }
+.s_65  { flex: 0 0 calc(65% - (15px * 0.35)); }
+.s_70  { flex: 0 0 calc(70% - (15px * 0.30)); }
+.s_75  { flex: 0 0 calc(75% - (15px * 0.25)); }
+.s_80  { flex: 0 0 calc(80% - (15px * 0.20)); }
+.s_85  { flex: 0 0 calc(85% - (15px * 0.15)); }
+.s_90  { flex: 0 0 calc(90% - (15px * 0.10)); }
+.s_95  { flex: 0 0 calc(95% - (15px * 0.05)); }
+.s_100 { flex: 0 0 100%; }
