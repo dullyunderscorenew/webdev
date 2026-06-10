@@ -76,11 +76,11 @@
                             <button class="toggle">&#9650;</button>
                         </div>
                         <div class="content">
-                            <p>All systems are operational. Latency is low and CPU usage is at 12%.</p>
+                            <p class="s_50">All systems are operational. Latency is low and CPU usage is at 12%.</p>
+                            <p class="s_50">All systems are operational. Latency is low and CPU usage is at 12%.</p>
                         </div>
                     </div>
                 </div>
-                
             </section>
             <section id="1-2">
                 <div class="title">title2</div>
@@ -109,7 +109,7 @@
         const sidenav = document.getElementById("e2");
         const mainframe = document.getElementById("e3");
 
-        document.addEventListener("DOMContentLoaded", () => {    
+        document.addEventListener("DOMContentLoaded", () => {
             topnav.addEventListener("click", (event) => {
                 if (event.target.tagName == "BUTTON") {
                     activate(event.target, 1);
@@ -126,7 +126,7 @@
                 });
             });
         });
-        
+
 
         /*
          * type
@@ -154,7 +154,7 @@
             } else if (type == 2) {
                 remove_active(document.querySelectorAll("[data-content]"));
                 remove_active(document.querySelectorAll("section"));
-                
+
                 ele.classList.add("active");
                 document.getElementById(ele.parentElement.id + "-" + ele.dataset.content).classList.add("active");
             } else if (type == 3) {
