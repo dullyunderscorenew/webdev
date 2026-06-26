@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>tests</title>
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
-    <link rel="stylesheet" href="./css/styles.css"></link>
+    <link rel="stylesheet" href="./stylesheets/style.css"></link>
 </head>
 <!--
     die menüstruktur spaltet sich in 3 ebenen auf
@@ -104,63 +104,6 @@
             </section>
         </main>
     </div>
-    <script>
-        const topnav = document.getElementById("e1");
-        const sidenav = document.getElementById("e2");
-        const mainframe = document.getElementById("e3");
-
-        document.addEventListener("DOMContentLoaded", () => {
-            topnav.addEventListener("click", (event) => {
-                if (event.target.tagName == "BUTTON") {
-                    activate(event.target, 1);
-                }
-            });
-            sidenav.addEventListener("click", (event) => {
-                if (event.target.tagName == "BUTTON") {
-                    activate(event.target, 2);
-                }
-            });
-            Array.from(document.querySelectorAll(".card .toggle"), el => {
-                el.addEventListener("click", (event) => {
-                    activate(event.target, 3);
-                });
-            });
-        });
-
-
-        /*
-         * type
-         * - 1 = topnavclick
-         * - 2 = sidenavclick
-        */
-        function activate(ele, type) {
-            function remove_active(eles) {
-                Array.from(eles, el => {
-                    el.classList.remove("active");
-                });
-            }
-            if (type == 1) {
-                var e2 = sidenav.querySelector("[id='" + ele.dataset.menu + "']");
-
-                remove_active(topnav.querySelectorAll("button"));
-                remove_active(sidenav.children);
-                remove_active(document.querySelectorAll("[data-content]"));
-                remove_active(document.querySelectorAll("section"));
-
-                ele.classList.add("active");
-                e2.classList.add("active");
-                e2.querySelector("[data-content='" + ele.dataset.standard + "']").classList.add("active");
-                document.getElementById(ele.dataset.menu + "-" + ele.dataset.standard).classList.add("active");
-            } else if (type == 2) {
-                remove_active(document.querySelectorAll("[data-content]"));
-                remove_active(document.querySelectorAll("section"));
-
-                ele.classList.add("active");
-                document.getElementById(ele.parentElement.id + "-" + ele.dataset.content).classList.add("active");
-            } else if (type == 3) {
-                ele.closest(".card").classList.toggle("collapsed");
-            }
-        }
-    </script>
+    <script src="./javascripts/scripts.js"></script>
 </body>
 </html>

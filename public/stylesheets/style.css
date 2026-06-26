@@ -169,7 +169,7 @@ header {
     margin-bottom: 15px;
 }
 
-.mainarea main section .title {
+.mainarea main section > .title {
     font-size: 2.2rem;
     font-weight: 700;
     margin-bottom: 20px;
@@ -232,20 +232,22 @@ header {
 
 .card .header {
     padding: 12px 16px;
-    background-color: color-mix(in srgb, var(--border) 10%, transparent);
+    background-color: var(--card-header-backgroundcolor, color-mix(in srgb, var(--border) 10%, transparent));
     display: flex;
     justify-content: space-between;
     align-items: center;
     cursor: pointer;
     user-select: none;
     border-bottom: 1px solid var(--border);
+    border-bottom: var(--card-header-borderbottom,1px solid var(--border));
 }
 
 .card .title {
-    all: unset !important;
-    font-size: 0.9rem !important;
-    font-weight: 600 !important;
-    color: var(--fg) !important;
+    all: unset;
+    font-size: var(--card-title-fontsize, 0.9rem);
+    font-weight: var(--card-title-fontweight, 600);
+    color: var(--card-title-color, var(--fg));
+    /*margin-bottom: var(--card-title-margin, 0);*/
 }
 
 .card .toggle {
@@ -305,23 +307,81 @@ header {
     transform: rotate(180deg);
 }
 
-.s_5   { flex: 0 0 calc(5% - (15px * 0.95)); }
-.s_10  { flex: 0 0 calc(10% - (15px * 0.90)); }
-.s_15  { flex: 0 0 calc(15% - (15px * 0.85)); }
-.s_20  { flex: 0 0 calc(20% - (15px * 0.80)); }
-.s_25  { flex: 0 0 calc(25% - (15px * 0.75)); }
-.s_30  { flex: 0 0 calc(30% - (15px * 0.70)); }
-.s_35  { flex: 0 0 calc(35% - (15px * 0.65)); }
-.s_40  { flex: 0 0 calc(40% - (15px * 0.60)); }
-.s_45  { flex: 0 0 calc(45% - (15px * 0.55)); }
-.s_50  { flex: 0 0 calc(50% - (15px * 0.50)); }
-.s_55  { flex: 0 0 calc(55% - (15px * 0.45)); }
-.s_60  { flex: 0 0 calc(60% - (15px * 0.40)); }
-.s_65  { flex: 0 0 calc(65% - (15px * 0.35)); }
-.s_70  { flex: 0 0 calc(70% - (15px * 0.30)); }
-.s_75  { flex: 0 0 calc(75% - (15px * 0.25)); }
-.s_80  { flex: 0 0 calc(80% - (15px * 0.20)); }
-.s_85  { flex: 0 0 calc(85% - (15px * 0.15)); }
-.s_90  { flex: 0 0 calc(90% - (15px * 0.10)); }
-.s_95  { flex: 0 0 calc(95% - (15px * 0.05)); }
-.s_100 { flex: 0 0 100%; }
+.s_5 { width: calc(5% - (15px * 0.95));}
+.s_10 { width: calc(10% - (15px * 0.9)); }
+.s_15 { width: calc(15% - (15px * 0.85)); }
+.s_20 { width: calc(20% - (15px * 0.8)); }
+.s_25 { width: calc(25% - (15px * 0.75)); }
+.s_30 { width: calc(30% - (15px * 0.7)); }
+.s_35 { width: calc(35% - (15px * 0.65)); }
+.s_40 { width: calc(40% - (15px * 0.6)); }
+.s_45 { width: calc(45% - (15px * 0.55)); }
+.s_50 { width: calc(50% - (15px * 0.5)); }
+.s_55 { width: calc(55% - (15px * 0.45)); }
+.s_60 { width: calc(60% - (15px * 0.4)); }
+.s_65 { width: calc(65% - (15px * 0.35)); }
+.s_70 { width: calc(70% - (15px * 0.3)); }
+.s_75 { width: calc(75% - (15px * 0.25)); }
+.s_80 { width: calc(80% - (15px * 0.2)); }
+.s_85 { width: calc(85% - (15px * 0.15)); }
+.s_90 { width: calc(90% - (15px * 0.1)); }
+.s_95 { width: calc(95% - (15px * 0.05)); }
+.s_100 { width: 100%; }
+
+
+body.login {
+    justify-content: center;
+    align-items: center;
+}
+
+.login > .card {
+    --card-title-fontsize: 1.8rem;
+    --card-title-color: var(--red);
+    --card-title-fontweight: 700;
+    --card-title-margin: 24px;
+    --card-header-backgroundcolor: none;
+    --card-header-borderbottom: none;
+    padding: 40px;
+    border-radius: 12px;
+    width: 500px;
+    text-align: center;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+form input {
+    padding: 12px;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--fg);
+    border-radius: 6px;
+    font-family: var(--font-family);
+    outline: none;
+}
+form input:focus {
+    border-color: var(--red);
+}
+form button {
+    padding: 12px;
+    background: var(--red);
+    color: var(--bg);
+    border: none;
+    border-radius: 6px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+form button:hover {
+    opacity: 0.9;
+}
+
+#login-error {
+    color: var(--red);
+    font-size: 0.8rem;
+    margin-top: 10px;
+    height: 1rem;
+}
