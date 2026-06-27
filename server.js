@@ -13,8 +13,9 @@ const { Pool } = require("pg");
 const path = require("path");
 const session = require("express-session");
 const bcrypt = require("bcryptjs");
+const { title } = require("process");
+const ejsLayouts = require("express-ejs-layouts");
 const app = express();
-
 
 /* process enthält sowas wie die derzeitigen server.js instance und daher kann man hier auf die envs zugreifen */
 const PORT = process.env.PORT;
@@ -32,7 +33,11 @@ const pool = new Pool({
 /* siehe cors kommentar weiter oben */
 /* app.use(cors()); */ 
 
-app.use(express.json());
+app.set("view engine", "ejs");
+app.set("views", path.join(__dirname, "public/pages"));
+app.use(ejsLayouts);
+app.set("layout", "layout");
+app.use(express.urlencoded({extended: true}));
 app.use(session({
     secret: process.env.session_secret,
     resave: false,
@@ -42,29 +47,27 @@ app.use(session({
     }
 }));
 
-app.get('/index.html', (req, res) => {
-    res.redirect('/');
-});
-
 /* allgemeinen pfad für resourcen wie style usw hinterlegen */
-app.use(express.static(path.join(__dirname, 'public/assets')));
+app.use(express.static(path.join(__dirname, "public/assets")));
 
 /* wer keine session besitzt der darf auch keine weiteren funktionen verwenden, daher weiterleitung zur anmeldeseite */
 const pageGuard = (req, res, next) => {
     if (req.session.user) {
         next();
     } else {
-        res.redirect('/login');
+        res.redirect("/login");
     }
 }
 
-app.get('/login', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/pages', 'login.html'));
+app.get("/login", (req, res) => {
+    res.render("login", { title: "test"});
+    //res.sendFile(path.join(__dirname, "public/pages", "login.html"));
 });
 
 /* insofern der pageguard nicht anders weiterleitet dann kommt man standardmäßig zum index */
-app.get('/', pageGuard, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public/pages', 'index.html'));
+app.get("/", pageGuard, (req, res) => {
+    res.render("index", { title: "test"})
+    //res.sendFile(path.join(__dirname, "public/pages", "index.html"));
 });
 
 /* login funktion */
@@ -73,23 +76,23 @@ app.post("/api/login", async (req, res) => {
     try {
         const result = await pool.query("SELECT * FROM nutzer WHERE name = $1", [name]);
         const user = result.rows[0];
-        console.log(result.rows[0]);
+        console.log(res.body);
         if (user && user.pw == pw) {
             req.session.user = {
                 id: user.user_id,
                 name: user.name
             };
-            res.json({ success: true });
+            return res.redirect("/");
         } else {
-            res.status(401).json({ message: "Nutzername oder Passwort sind falsch!"});
+            return res.render("login", {title: "Login", error: "Nutzername oder Passwort sind falsch!"});
         }
     } catch (err) {
-        res.status(500).json({ message: "Es ist ein Fehler aufgetreten bitte versuchen Sie es erneut!"});
+        return res.render("login", {title: "Login", error: "Es ist ein Fehler aufgetreten!"});
     }
 });
 
 /* logout funktion */
-app.get('/api/logout', (req, res) => {
+app.get("/api/logout", (req, res) => {
     req.session.destroy();
     res.json({ success: true });
 });
