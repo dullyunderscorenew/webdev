@@ -42,19 +42,29 @@ app.use(session({
     }
 }));
 
+app.get('/index.html', (req, res) => {
+    res.redirect('/');
+});
+
+/* allgemeinen pfad für resourcen wie style usw hinterlegen */
+app.use(express.static(path.join(__dirname, 'public/assets')));
+
 /* wer keine session besitzt der darf auch keine weiteren funktionen verwenden, daher weiterleitung zur anmeldeseite */
 const pageGuard = (req, res, next) => {
     if (req.session.user) {
         next();
     } else {
-        res.redirect('/login.html');
+        res.redirect('/login');
     }
 }
 
+app.get('/login', (req, res) => {
+    res.sendFile(path.join(__dirname, 'public/pages', 'login.html'));
+});
 
 /* insofern der pageguard nicht anders weiterleitet dann kommt man standardmäßig zum index */
 app.get('/', pageGuard, (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'public/pages', 'index.html'));
 });
 
 /* login funktion */
@@ -84,8 +94,6 @@ app.get('/api/logout', (req, res) => {
     res.json({ success: true });
 });
 
-/* allgemeinen pfad für seiten hinterlegen */
-app.use(express.static(path.join(__dirname, 'public')));
 
 /* port für den localhost bestimmen */
 app.listen(PORT, () => {
