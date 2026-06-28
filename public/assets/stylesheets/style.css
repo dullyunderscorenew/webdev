@@ -94,7 +94,7 @@ header {
     font-size: 0.65rem;
     text-transform: uppercase;
     letter-spacing: 0.1em;
-    color: var(--color-muted-alt);
+    /*color: var(--color-muted-alt);*/
     margin: 24px 0 8px 16px;
     font-weight: 700;
 }
@@ -307,24 +307,24 @@ header {
     transform: rotate(180deg);
 }
 
-.s_5 { width: calc(5% - (15px * 0.95));}
-.s_10 { width: calc(10% - (15px * 0.9)); }
+.s_5  { width: calc(5%  - (15px * 0.95)); }
+.s_10 { width: calc(10% - (15px * 0.90)); }
 .s_15 { width: calc(15% - (15px * 0.85)); }
-.s_20 { width: calc(20% - (15px * 0.8)); }
+.s_20 { width: calc(20% - (15px * 0.80)); }
 .s_25 { width: calc(25% - (15px * 0.75)); }
-.s_30 { width: calc(30% - (15px * 0.7)); }
+.s_30 { width: calc(30% - (15px * 0.70)); }
 .s_35 { width: calc(35% - (15px * 0.65)); }
-.s_40 { width: calc(40% - (15px * 0.6)); }
+.s_40 { width: calc(40% - (15px * 0.60)); }
 .s_45 { width: calc(45% - (15px * 0.55)); }
-.s_50 { width: calc(50% - (15px * 0.5)); }
+.s_50 { width: calc(50% - (15px * 0.50)); }
 .s_55 { width: calc(55% - (15px * 0.45)); }
-.s_60 { width: calc(60% - (15px * 0.4)); }
+.s_60 { width: calc(60% - (15px * 0.40)); }
 .s_65 { width: calc(65% - (15px * 0.35)); }
-.s_70 { width: calc(70% - (15px * 0.3)); }
+.s_70 { width: calc(70% - (15px * 0.30)); }
 .s_75 { width: calc(75% - (15px * 0.25)); }
-.s_80 { width: calc(80% - (15px * 0.2)); }
+.s_80 { width: calc(80% - (15px * 0.20)); }
 .s_85 { width: calc(85% - (15px * 0.15)); }
-.s_90 { width: calc(90% - (15px * 0.1)); }
+.s_90 { width: calc(90% - (15px * 0.10)); }
 .s_95 { width: calc(95% - (15px * 0.05)); }
 .s_100 { width: 100%; }
 
@@ -362,9 +362,11 @@ form input {
     font-family: var(--font-family);
     outline: none;
 }
+
 form input:focus {
     border-color: var(--red);
 }
+
 form button {
     padding: 12px;
     background: var(--red);
@@ -375,11 +377,12 @@ form button {
     cursor: pointer;
     transition: opacity 0.2s;
 }
+
 form button:hover {
     opacity: 0.9;
 }
 
-#login-error {
+.error {
     color: var(--red);
     font-size: 0.8rem;
     margin-top: 10px;

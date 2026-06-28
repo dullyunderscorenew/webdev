@@ -1,0 +1,31 @@
+services:
+
+  database:
+    image: postgres:17
+    container_name: pg_db
+    environment:
+      POSTGRES_USER: ${DB_USER}
+      POSTGRES_PASSWORD: ${DB_PASSWORD}
+      POSTGRES_DB: ${DB_NAME}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+      - ./db/init.sql:/docker-entrypoint-initdb.d/init.sql
+      
+  webapp:
+    build: .
+    container_name: webdev
+    restart: always
+    ports:
+      - "3000:3000"
+    environment:
+      PORT: 3000
+      DB_USER: ${DB_USER}
+      DB_PASSWORD: ${DB_PASSWORD}
+      DB_HOST: ${DB_HOST}
+      DB_NAME: ${DB_NAME}
+      DB_PORT: ${DB_PORT}
+      session_secret: ${session_secret}
+    depends_on:
+      - database
+volumes:
+  postgres_data:

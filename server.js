@@ -47,7 +47,7 @@ hinweise:
     const PORT = process.env.PORT;
     const pool = new Pool({
         user: process.env.DB_USER,
-        host: process.env.DB_HOST,
+        host: "database",
         database: process.env.DB_NAME,
         password: process.env.DB_PASSWORD,
         port: process.env.DB_PORT,
@@ -109,6 +109,31 @@ hinweise:
     });
 // #endregion
 
-app.listen(PORT, () => {
+async function verbinde_db() {
+    let connected = false;
+
+    while (!connected) {
+        try {
+            await pool.query("SELECT NOW()");
+            connected = true;
+            console.log("Database connected");
+        } catch (err) {
+            console.log("Waiting for database...");
+            await new Promise(r => setTimeout(r, 3000));
+        }
+    }
+}
+
+async function serverstart() {
+    await verbinde_db();
+
+    app.listen(PORT, () => {
+        console.log("Server läuft auf http://localhost:" + PORT);
+    });
+}
+
+serverstart();
+
+/*app.listen(PORT, () => {
     console.log("Server läuft auf http://localhost:" + PORT);
-});
+});*/
