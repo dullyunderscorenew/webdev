@@ -5,9 +5,6 @@ create table if not exists nutzer (
     pw varchar(30)
 );
 
-insert into nutzer (name, pw) 
-values ('admin', 'admin');
-
 create table if not exists topmenu (
     tm_id int PRIMARY KEY GENERATED ALWAYS AS IDENTITY,
     name varchar(30)
